@@ -13,21 +13,21 @@ const con = mongoose.connection;
 con.on("open", () => {
   console.log("connected...");
 });
-
+//By using lookup joining the table in console
 product.aggregate([
     {
       $lookup: {
         from: "categories",
         localField: "categoryId",
         foreignField: "categoryId",
-        as: "orders_info",
+        as: "categories_info",
       },
     },
     // Deconstructs the array field from the
     // input document to output a document
     // for each element
     {
-      $unwind: "$orders_info",
+      $unwind: "$categories_info",
     },
   ])
     .then((result) => {
